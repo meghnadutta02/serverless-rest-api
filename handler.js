@@ -20,7 +20,7 @@ const send = (statusCode, messag) => {
 module.exports.createNote = async (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
   //this is how you can access the context that is passed down from the authorizer
-  console.log(event.requestContext.authorizer.foo);
+  //console.log(event.requestContext.authorizer.foo);
   let data = JSON.parse(event.body);
   try {
     const params = {
@@ -32,8 +32,8 @@ module.exports.createNote = async (event, context, callback) => {
       },
       ConditionExpression: "attribute_not_exists(notesId)",
     };
-    await docClient.put(params).promise();
-    callback(null, send(201, "Note created successfully"));
+    const data = await docClient.put(params).promise();
+    callback(null, send(201, data));
   } catch (err) {
     callback(null, send(500, err.message));
   }
