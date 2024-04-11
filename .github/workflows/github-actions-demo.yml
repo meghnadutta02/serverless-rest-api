@@ -3,7 +3,7 @@ name: Deploy notes API
 on:
   push:
     branches:
-      - main
+      - github-actions
 
 jobs:
   deploy:
