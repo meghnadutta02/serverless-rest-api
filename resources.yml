@@ -41,7 +41,7 @@ cognitoUserPoolClient:
 cognitoUserPoolDomain:
   Type: AWS::Cognito::UserPoolDomain
   Properties:
-    Domain: serverless-notes-app1-${self:provider.stage}
+    Domain: serverless-notes-app-deploy-${self:provider.stage}
     UserPoolId: !Ref cognitoUserPool
 
 #application parameters
