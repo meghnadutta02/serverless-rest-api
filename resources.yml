@@ -38,11 +38,11 @@ cognitoUserPoolClient:
     #GenerateSecret: false
 
 #user pool domain
-cognitoUserPoolDomain:
-  Type: AWS::Cognito::UserPoolDomain
-  Properties:
-    Domain: serverless-notes-app-2002-${self:provider.stage}
-    UserPoolId: !Ref cognitoUserPool
+# cognitoUserPoolDomain:
+#   Type: AWS::Cognito::UserPoolDomain
+#   Properties:
+#     Domain: serverless-notes-app-2002-${self:provider.stage}
+#     UserPoolId: !Ref cognitoUserPool
 
 #application parameters
 #this is used to store the user pool arn in the parameter store
