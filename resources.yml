@@ -1,0 +1,54 @@
+#Notes dynamodb table
+notesTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: notes-${self:provider.stage}
+    BillingMode: PAY_PER_REQUEST
+    AttributeDefinitions:
+      - AttributeName: notesId
+        AttributeType: S
+    KeySchema:
+      - AttributeName: notesId
+        KeyType: HASH
+
+#cognito user pool
+cognitoUserPool:
+  Type: AWS::Cognito::UserPool
+  Properties:
+    UserPoolName: notes_user_pool-${self:provider.stage}
+
+#user pool client
+cognitoUserPoolClient:
+  Type: AWS::Cognito::UserPoolClient
+  Properties:
+    ClientName: NotesWebClient-${self:provider.stage}
+    UserPoolId: !Ref cognitoUserPool
+    AllowedOAuthFlowsUserPoolClient: true
+    SupportedIdentityProviders:
+      - COGNITO
+    AllowedOAuthScopes:
+      - phone
+      - email
+      - openid
+      - profile
+    AllowedOAuthFlows:
+      - implicit
+    CallbackURLs:
+      - http://localhost:3000
+    #GenerateSecret: false
+
+#user pool domain
+cognitoUserPoolDomain:
+  Type: AWS::Cognito::UserPoolDomain
+  Properties:
+    Domain: serverless-notes-app1-${self:provider.stage}
+    UserPoolId: !Ref cognitoUserPool
+
+#application parameters
+#this is used to store the user pool arn in the parameter store
+userPoolArnParam:
+  Type: AWS::SSM::Parameter
+  Properties:
+    Name: /notes/${self:provider.stage}/userPoolArn
+    Type: String
+    Value: !GetAtt cognitoUserPool.Arn
