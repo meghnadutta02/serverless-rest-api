@@ -4,15 +4,17 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"All tests passed\""
+    "test": "jest"
   },
   "author": "Meghna Dutta",
   "license": "ISC",
   "dependencies": {
     "aws-jwt-verify": "^4.0.1",
-    "aws-sdk": "^2.1594.0"
+    "aws-sdk": "^2.1594.0",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "serverless-iam-roles-per-function": "^3.2.0"
   }
 }

@@ -1,3 +1,5 @@
+#this config file is for aws codebuild to deploy the serverless application to AWS
+
 version: 0.2
 
 phases:

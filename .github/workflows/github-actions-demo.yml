@@ -1,3 +1,5 @@
+#This file is the github actions workflow file to deploy the serverless application to AWS
+
 name: Deploy notes API
 
 on:
