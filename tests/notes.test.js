@@ -9,9 +9,7 @@ describe("Notes", () => {
     let idToken = user.AuthenticationResult.IdToken;
     console.log(idToken);
   });
-  describe("Create Note", () => {
-    it("should create a new note", async () => {
-      expect(true).toEqual(true);
-    });
+  it("should create a note", async () => {
+    expect(true).toEqual(true);
   });
 });

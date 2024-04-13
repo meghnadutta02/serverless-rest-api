@@ -4,7 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"All tests passed\""
+    "test": "jest"
   },
   "author": "Meghna Dutta",
   "license": "ISC",
