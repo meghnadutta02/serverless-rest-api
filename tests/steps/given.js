@@ -1,12 +1,27 @@
 "use strict";
-const AWS = require("aws-sdk", { region: "us-east-1" });
+const AWS = require("aws-sdk");
+const ssm = new AWS.SSM();
 const cognito = new AWS.CognitoIdentityServiceProvider();
 
 exports.authenticatedUser = async () => {
-  const userPoolId = process.env.USER_POOL_ID;
-  const clientId = process.env.CLIENT_ID;
-  const username = process.env.USERNAME;
-  const password = process.env.PASSWORD;
+  const userPoolIdParam = await ssm
+    .getParameter({ Name: "/notes/dev/userPoolID" })
+    .promise();
+  const clientIdParam = await ssm
+    .getParameter({ Name: "/notes/dev/clientID" })
+    .promise();
+  const usernameParam = await ssm
+    .getParameter({ Name: "/notes/dev/username" })
+    .promise();
+  const passwordParam = await ssm
+    .getParameter({ Name: "/notes/dev/password" })
+    .promise();
+
+  const userPoolId = userPoolIdParam.Parameter.Value;
+  const clientId = clientIdParam.Parameter.Value;
+  const username = usernameParam.Parameter.Value;
+  const password = passwordParam.Parameter.Value;
+
   const params = {
     AuthFlow: "ADMIN_NO_SRP_AUTH",
     ClientId: clientId,
@@ -16,6 +31,7 @@ exports.authenticatedUser = async () => {
       PASSWORD: password,
     },
   };
+
   let user = await cognito.adminInitiateAuth(params).promise();
   return user;
 };
